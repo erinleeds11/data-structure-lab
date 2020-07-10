@@ -17,7 +17,13 @@ def all_houses(filename):
 
     houses = set()
 
-    # TODO: replace this with your code
+    cohort_data = open(filename)
+    for line in cohort_data:
+      lines = line.rstrip()
+      categories = lines.split('|')
+      house = categories[2]
+      if house:
+        houses.add(house)
 
     return houses
 
@@ -52,7 +58,15 @@ def students_by_cohort(filename, cohort='All'):
 
     students = []
 
-    # TODO: replace this with your code
+    
+    cohort_data = open(filename)
+    for line in cohort_data:
+      lines = line.rstrip()
+      categories = lines.split('|')
+      name = categories[0] + " " + categories[1]
+      cohort_date = categories[4]
+      if cohort_date not in ('I', 'G') and cohort in ("All", cohort_date):
+        students.append(name)
 
     return sorted(students)
 
@@ -88,6 +102,7 @@ def all_names_by_house(filename):
       - list[list]: a list of lists
     """
 
+
     dumbledores_army = []
     gryffindor = []
     hufflepuff = []
@@ -96,9 +111,37 @@ def all_names_by_house(filename):
     ghosts = []
     instructors = []
 
-    # TODO: replace this with your code
+    cohort_data = open(filename)
+    for line in cohort_data:
+      lines = line.rstrip()
+      categories = lines.split('|')
+      name = categories[0] + " " + categories[1]
+      house_name = categories[2]
+      cohort_date = categories[4]
+      if house_name == "Dumbledore's Army":
+        dumbledores_army.append(name)
+      elif house_name == "Gryffindor":
+        gryffindor.append(name)
+      elif house_name == "Hufflepuff":
+        hufflepuff.append(name)
+      elif house_name == "Ravenclaw":
+        ravenclaw.append(name)
+      elif house_name == "Slytherin":
+        slytherin.append(name)
+      
+      else:
+        if cohort_date == "I":
+          instructors.append(name)
+        if cohort_date == "G":
+          ghosts.append(name)
 
-    return []
+
+    return [sorted(dumbledores_army),
+    sorted(gryffindor),
+    sorted(hufflepuff), 
+    sorted(ravenclaw), sorted(slytherin),
+    sorted(ghosts),
+    sorted(instructors),]
 
 
 def all_data(filename):
